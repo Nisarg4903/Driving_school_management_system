@@ -6,6 +6,8 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 
+
+
 const Navbar = () => {
   return (
     <div className="navbar">
@@ -35,7 +37,7 @@ const Navbar = () => {
           </div>
           <div className="item">
             <img
-              src="/images/IMG-0024.jpg"
+              src="images/IMG-0024.jpg"
               alt="profile-pic"
               className="avatar"
             />
