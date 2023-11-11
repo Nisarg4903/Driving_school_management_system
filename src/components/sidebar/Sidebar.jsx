@@ -2,7 +2,6 @@ import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
@@ -10,6 +9,9 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+// Link ro routing 
+import { Link } from "react-router-dom";
+
 
 
 
@@ -17,7 +19,9 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">lamadmin</span>
+        <Link to="/" style={{textDecoration: "none"}}>
+          <span className="logo">DSM</span>
+        </Link>
       </div>
       <hr />
       <div className="center">
@@ -30,15 +34,11 @@ const Sidebar = () => {
           <p className="title">LISTS</p>
           <li>
             <PersonOutlineOutlinedIcon className="icon" />
-            <span>Users</span>
+            <span>Students</span>
           </li>
           <li>
             <Inventory2OutlinedIcon className="icon" />
-            <span>Products</span>
-          </li>
-          <li>
-            <CreditCardOutlinedIcon className="icon" />
-            <span>Orders</span>
+            <span>Instructers</span>
           </li>
           <p className="title">USEFULL</p>
           <li>
