@@ -1,9 +1,10 @@
 import "./widget.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import GroupsIcon from "@mui/icons-material/Groups";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+
 
 const Widget = ({ type }) => {
   let data;
@@ -12,13 +13,13 @@ const Widget = ({ type }) => {
   const diff = 20;
 
   switch (type) {
-    case "user":
+    case "student":
       data = {
-        title: "USERS",
+        title: "STUDENTS",
         isMoney: false,
-        link: "See all users",
+        link: "See all Students",
         icon: (
-          <PersonOutlineOutlinedIcon
+          <GroupsIcon
             className="icon"
             style={{
               color: "crimson",
@@ -28,13 +29,13 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "order":
+    case "instructor":
       data = {
-        title: "ORDERS",
+        title: "INSTRUCTORS",
         isMoney: false,
-        link: "See all orders",
+        link: "See all Instructors",
         icon: (
-          <ShoppingCartOutlinedIcon
+          <PersonOutlineOutlinedIcon
             className="icon"
             style={{
               color: "goldenrod",

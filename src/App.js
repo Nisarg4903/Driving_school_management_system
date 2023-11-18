@@ -3,6 +3,8 @@ import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import New from "./pages/new/New";
 import Single from "./pages/single/Single";
+import Schedule from "./pages/schedule/Schedule";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -39,6 +41,7 @@ function App() {
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
             </Route>
+            <Route path="schedule" element={<Schedule />} />
           </Route>
         </Routes>
       </BrowserRouter>

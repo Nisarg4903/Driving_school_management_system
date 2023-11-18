@@ -1,7 +1,6 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
@@ -9,11 +8,10 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-// Link ro routing 
+import GroupsIcon from "@mui/icons-material/Groups";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+// Link ro routing
 import { Link } from "react-router-dom";
-
-
-
 
 const Sidebar = () => {
   return (
@@ -27,21 +25,29 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <li>
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
-              <PersonOutlineOutlinedIcon className="icon" />
+              <GroupsIcon className="icon" />
               <span>Students</span>
             </li>
           </Link>
           <Link to="/products" style={{ textDecoration: "none" }}>
             <li>
-              <Inventory2OutlinedIcon className="icon" />
+              <PersonOutlineOutlinedIcon className="icon" />
               <span>Instructers</span>
+            </li>
+          </Link>
+          <Link to="/schedule" style={{ textDecoration: "none" }}>
+            <li>
+              <CalendarMonthIcon className="icon" />
+              <span>Schedule</span>
             </li>
           </Link>
           <p className="title">USEFULL</p>
