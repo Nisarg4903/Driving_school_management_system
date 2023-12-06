@@ -1,11 +1,10 @@
-import "./new.scss";
+import "./lecturerform.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { Auth, db, storage } from "../../Firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, serverTimestamp, setDoc, collection } from "firebase/firestore";
+import { db, storage } from "../../Firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +12,6 @@ const New = ({ title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,44 +62,32 @@ const New = ({ title }) => {
     setData({ ...data, [id]: value });
   };
 
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
-  };
+const handleAdd = async (e) => {
+  e.preventDefault();
 
-  const handleAdd = async (e) => {
-    e.preventDefault();
+  // Check if the image is fully uploaded
+  if (!data.img) {
+    alert("Please wait until the image has finished uploading.");
+    return;
+  }
 
-    // Check if passwords match
-    if (data.password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
+  try {
+    // Create a new document reference with an auto-generated ID
+    const newInstructorRef = doc(collection(db, "instructors"));
 
-    // Check if the image is fully uploaded
-    if (!data.img) {
-      alert("Please wait until the image has finished uploading.");
-      return;
-    }
+    // Set the data for the new document using the new document reference
+    await setDoc(newInstructorRef, {
+      ...data,
+      timeStamp: serverTimestamp(),
+    });
 
-    try {
-      const res = await createUserWithEmailAndPassword(
-        Auth,
-        data.email,
-        data.password
-      );
-
-      await setDoc(doc(db, "users", res.user.uid), {
-        ...data,
-        role: "student", // Specify the user role
-        timeStamp: serverTimestamp(),
-      });
-
-      navigate(-1);
-    } catch (err) {
-      console.log(err);
-      alert("An error occurred while creating the user."); // Display a user-friendly error message
-    }
-  };
+    alert("Instructor added successfully!");
+    navigate(-1); // Navigate back to the previous page or to the instructors list
+  } catch (err) {
+    console.log(err);
+    alert("An error occurred while adding the instructor.");
+  }
+};
 
   return (
     <div className="new">
@@ -162,25 +148,6 @@ const New = ({ title }) => {
                 />
               </div>
               <div className="formInput">
-                <label htmlFor="password">Password:</label>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  onChange={handleInput}
-                />
-              </div>
-
-              <div className="formInput">
-                <label htmlFor="confirmPassword">Confirm Password:</label>
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  placeholder="Confirm Password"
-                  onChange={handleConfirmPassword}
-                />
-              </div>
-              <div className="formInput">
                 <label htmlFor="phone">Phone Number:</label>
                 <input
                   id="phone"
@@ -191,11 +158,30 @@ const New = ({ title }) => {
               </div>
 
               <div className="formInput">
-                <label htmlFor="course">ID-Number:</label>
+                <label htmlFor="licenseNumber">License Number:</label>
                 <input
-                  id="ID-Number"
+                  id="licenseNumber"
                   type="text"
-                  placeholder="ID-Number"
+                  placeholder="License Number"
+                  onChange={handleInput}
+                />
+              </div>
+              <div className="formInput">
+                <label htmlFor="vehicleType">Vehicle Type:</label>
+                <input
+                  id="vehicleType"
+                  type="text"
+                  placeholder="Vehicle Type"
+                  onChange={handleInput}
+                />
+              </div>
+
+              <div className="formInput">
+                <label htmlFor="specialization">Specialization:</label>
+                <input
+                  id="specialization"
+                  type="text"
+                  placeholder="Specialization"
                   onChange={handleInput}
                 />
               </div>

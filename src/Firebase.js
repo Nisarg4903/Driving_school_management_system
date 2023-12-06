@@ -1,7 +1,10 @@
 // Import the functions you need from the Firebase SDKs
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import {getFirestore} from "firebase/firestore"
+import { getStorage } from "firebase/storage";
 
+ 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -17,3 +20,5 @@ const app = initializeApp(firebaseConfig);
 
 // Export the authentication instance
 export const Auth = getAuth();
+export const db =  getFirestore(app);
+export const storage = getStorage(app); 

@@ -2,34 +2,28 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import New from "./pages/new/New";
-import Single from "./pages/single/Single";
 import Schedule from "./pages/schedule/Schedule";
+import Lecturer from "./pages/Lecturer/Lecturer"
+import LecturerForm from "./components/Lecturer/LecturerForm"
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import React, { useContext } from 'react';
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const currentUser = true; // Placeholder for authentication logic
+
+  const { currentUser } = useContext(AuthContext)
 
   // RequireAuth component to protect routes
   const RequireAuth = ({ children }) => {
     return currentUser ? children : <Navigate to="/login" replace />;
   };
-
+  
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              currentUser ? (
-                <Navigate to="/home" replace />
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            }
-          />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/home"
@@ -42,7 +36,7 @@ function App() {
 
           {/* Other Protected Routes */}
           <Route
-            path="/users"
+            path="/student"
             element={
               <RequireAuth>
                 <List />
@@ -50,43 +44,29 @@ function App() {
             }
           />
           <Route
-            path="/users/:userId"
+            path="/student/new"
             element={
               <RequireAuth>
-                <Single />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/users/new"
-            element={
-              <RequireAuth>
-                <New inputs={userInputs} title="Add New User" />
+                <New title="Add New Student" />
               </RequireAuth>
             }
           />
 
           <Route
-            path="/products"
+            path="/lecturer"
             element={
               <RequireAuth>
-                <List />
+                <Lecturer />
               </RequireAuth>
             }
           />
           <Route
-            path="/products/:productId"
+            path="/lecturer/new"
             element={
               <RequireAuth>
-                <Single />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/products/new"
-            element={
-              <RequireAuth>
-                <New inputs={productInputs} title="Add New Product" />
+                <LecturerForm
+                  title="Add New Instructor"
+                />
               </RequireAuth>
             }
           />

@@ -1,34 +1,39 @@
-export const userColumns = [
+export const studentColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
-    field: "user",
-    headerName: "User",
-    width: "230",
-    renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.username}
-        </div>
-      );
-    },
+    field: "fullName",
+    headerName: "Full Name",
+    width: 230,
+  },
+  {
+    field: "dateOfBirth",
+    headerName: "Date of Birth",
+    width: 160,
   },
   {
     field: "email",
     headerName: "Email",
     width: 230,
   },
-
   {
-    field: "age",
-    headerName: "Age",
-    width: 100,
-  },
-
-  {
-    field: "status",
-    headerName: "Status",
+    field: "phone",
+    headerName: "Phone Number",
     width: 160,
+  },
+  {
+    field: "address",
+    headerName: "Address",
+    width: 200,
+  },
+  {
+    field: "course",
+    headerName: "Course",
+    width: 150,
+  },
+  {
+    field: "registrationDate",
+    headerName: "Registration Date",
+    width: 180,
     renderCell: (params) => {
       return (
         <div className={`cellWithStatus ${params.row.status}`}>
@@ -36,130 +41,5 @@ export const userColumns = [
         </div>
       );
     },
-  },
-];
-
-//Temporary Files
-export const userRows = [
-  // Original rows transformed
-  {
-    id: 1,
-    username: "jon.snow",
-    img: "https://via.placeholder.com/150",
-    status: "Active",
-    email: "jon.snow@example.com",
-    age: 35,
-  },
-  {
-    id: 2,
-    username: "cersei.lannister",
-    img: "https://via.placeholder.com/150",
-    status: "Inactive",
-    email: "cersei.lannister@example.com",
-    age: 42,
-  },
-  {
-    id: 3,
-    username: "jaime.lannister",
-    img: "https://via.placeholder.com/150",
-    status: "Pending",
-    email: "jaime.lannister@example.com",
-    age: 45,
-  },
-  {
-    id: 4,
-    username: "arya.stark",
-    img: "https://via.placeholder.com/150",
-    status: "Active",
-    email: "arya.stark@example.com",
-    age: 16,
-  },
-  {
-    id: 5,
-    username: "daenerys.targaryen",
-    img: "https://via.placeholder.com/150",
-    status: "Inactive",
-    email: "daenerys.targaryen@example.com",
-    age: "N/A",
-  },
-  {
-    id: 6,
-    username: "unknown.melisandre",
-    img: "https://via.placeholder.com/150",
-    status: "Pending",
-    email: "unknown.melisandre@example.com",
-    age: 150,
-  },
-  {
-    id: 7,
-    username: "ferrara.clifford",
-    img: "https://via.placeholder.com/150",
-    status: "Active",
-    email: "ferrara.clifford@example.com",
-    age: 44,
-  },
-  {
-    id: 8,
-    username: "rossini.frances",
-    img: "https://via.placeholder.com/150",
-    status: "Inactive",
-    email: "rossini.frances@example.com",
-    age: 36,
-  },
-  {
-    id: 9,
-    username: "harvey.roxie",
-    img: "https://via.placeholder.com/150",
-    status: "Pending",
-    email: "harvey.roxie@example.com",
-    age: 65,
-  },
-  {
-    id: 10,
-    username: "user.ten",
-    img: "https://via.placeholder.com/150",
-    status: "Active",
-    email: "user.ten@example.com",
-    age: "N/A",
-  },
-  {
-    id: 11,
-    username: "walter.white",
-    img: "https://via.placeholder.com/150",
-    status: "Active",
-    email: "walter.white@example.com",
-    age: 50,
-  },
-  {
-    id: 12,
-    username: "jesse.pinkman",
-    img: "https://via.placeholder.com/150",
-    status: "Inactive",
-    email: "jesse.pinkman@example.com",
-    age: 25,
-  },
-  {
-    id: 13,
-    username: "saul.goodman",
-    img: "https://via.placeholder.com/150",
-    status: "Pending",
-    email: "saul.goodman@example.com",
-    age: 42,
-  },
-  {
-    id: 14,
-    username: "gus.fring",
-    img: "https://via.placeholder.com/150",
-    status: "Active",
-    email: "gus.fring@example.com",
-    age: 48,
-  },
-  {
-    id: 15,
-    username: "hank.schrader",
-    img: "https://via.placeholder.com/150",
-    status: "Inactive",
-    email: "hank.schrader@example.com",
-    age: 43,
   },
 ];

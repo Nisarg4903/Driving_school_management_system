@@ -1,7 +1,7 @@
-import "./datatable.scss";
+import "./lecturertable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 // In the import line below the user info is being imported from datatablesource.js
-import { studentColumns } from "../../datatablesource";
+import { lecturerColumns } from "../../LecturerTableSource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
@@ -14,7 +14,8 @@ const Datatable = () => {
     const fetchData = async () => {
       let list = [];
       try {
-        const querySnapshot = await getDocs(collection(db, "users"));
+        // Fetch from the "instructors" collection instead of "users"
+        const querySnapshot = await getDocs(collection(db, "instructors"));
         querySnapshot.forEach((doc) => {
           list.push({ id: doc.id, ...doc.data() });
         });
@@ -60,14 +61,14 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
-        <Link to="/student/new" className="link">
+        Add New Lecturer
+        <Link to="/lecturer/new" className="link">
           Add New
         </Link>
       </div>
       <DataGrid
         rows={data}
-        columns={studentColumns.concat(actionColumn)}
+        columns={lecturerColumns.concat(actionColumn)}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
