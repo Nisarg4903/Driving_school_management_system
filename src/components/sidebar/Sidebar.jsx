@@ -11,9 +11,22 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import GroupsIcon from "@mui/icons-material/Groups";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 // Link ro routing
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { Auth } from "../../Firebase"; // Make sure to import the Auth object correctly
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(Auth); // Signs out the current user
+      navigate("/login"); // Redirects to the login page
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -77,7 +90,7 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li>
+          <li onClick={handleLogout}>
             <LogoutOutlinedIcon className="icon" />
             <span>Logout</span>
           </li>
