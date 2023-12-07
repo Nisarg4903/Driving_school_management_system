@@ -1,45 +1,63 @@
 export const studentColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "id", // This now corresponds to the row number, not the Firebase ID
+    headerName: "No.",
+    width: 10,
+  },
+  {
+    field: "img",
+    headerName: "Image",
+    width: 50,
+    renderCell: (params) => {
+      return (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={params.value}
+            alt="Avatar"
+            style={{ width: 30, height: 30, borderRadius: "50%" }}
+          />
+        </div>
+      );
+    },
+  },
   {
     field: "fullName",
     headerName: "Full Name",
-    width: 230,
+    width: 150,
   },
   {
     field: "dateOfBirth",
     headerName: "Date of Birth",
-    width: 160,
+    width: 150,
   },
   {
     field: "email",
     headerName: "Email",
-    width: 230,
+    width: 200,
+  },
+  {
+    field: "password",
+    headerName: "Password",
+    width: 100,
   },
   {
     field: "phone",
     headerName: "Phone Number",
-    width: 160,
+    width: 130,
   },
   {
-    field: "address",
-    headerName: "Address",
-    width: 200,
+    field: "lessons",
+    headerName: "Lessons",
+    width: 80,
   },
   {
-    field: "course",
-    headerName: "Course",
+    field: "ID-Number",
+    headerName: "ID-Number",
+    width: 100,
+  },
+  {
+    field: "payment",
+    headerName: "Payment Amount",
     width: 150,
-  },
-  {
-    field: "registrationDate",
-    headerName: "Registration Date",
-    width: 180,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
   },
 ];

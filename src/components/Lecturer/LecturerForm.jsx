@@ -78,6 +78,7 @@ const handleAdd = async (e) => {
     // Set the data for the new document using the new document reference
     await setDoc(newInstructorRef, {
       ...data,
+      role: "instructor", // Specify the user role
       timeStamp: serverTimestamp(),
     });
 

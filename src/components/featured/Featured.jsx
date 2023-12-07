@@ -5,9 +5,34 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Firebase";
 
 
 const Featured = () => {
+
+ const [totalPayments, setTotalPayments] = useState(0);
+ const targetAmount = 100000; // 100% target
+
+ useEffect(() => {
+   const fetchPayments = async () => {
+     const querySnapshot = await getDocs(collection(db, "users"));
+     const total = querySnapshot.docs.reduce((sum, doc) => {
+       const payment = Number(doc.data().payment) || 0;
+       return sum + payment;
+     }, 0);
+     setTotalPayments(total);
+   };
+
+   fetchPayments();
+ }, []);
+
+ // Calculate the percentage of the target achieved
+ const percentageOfTarget = (totalPayments / targetAmount) * 100;
+
+
+  
   return (
     <div className="featured">
       <div className="top">
@@ -16,10 +41,16 @@ const Featured = () => {
       </div>
       <div className="bottom">
         <div className="featuredChart">
-          <CircularProgressbar value={70} text="70%" strokeWidth={5} />
+          {/* Display the progress towards the $100,000 target */}
+          <CircularProgressbar
+            value={percentageOfTarget}
+            text={`${percentageOfTarget.toFixed(2)}%`}
+            strokeWidth={5}
+          />
         </div>
         <p className="title">Total sales made today</p>
-        <p className="amount">$420</p>
+        {/* Display the total payments fetched */}
+        <p className="amount">${totalPayments.toLocaleString()}</p>
         <p className="desc">
           Previous transactions proccesing. Last payment may not be included
         </p>

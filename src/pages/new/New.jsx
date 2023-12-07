@@ -191,11 +191,29 @@ const New = ({ title }) => {
               </div>
 
               <div className="formInput">
-                <label htmlFor="course">ID-Number:</label>
+                <label htmlFor="idNumber">ID-Number:</label>
                 <input
                   id="ID-Number"
                   type="text"
                   placeholder="ID-Number"
+                  onChange={handleInput}
+                />
+              </div>
+              <div className="formInput">
+                <label htmlFor="payment">Payment Amount:</label>
+                <input
+                  id="payment"
+                  type="text"
+                  placeholder="ID-Number"
+                  onChange={handleInput}
+                />
+              </div>
+              <div className="formInput">
+                <label htmlFor="lessons">Lessons:</label>
+                <input
+                  id="lessons"
+                  type="number"
+                  placeholder="Amount of lessons"
                   onChange={handleInput}
                 />
               </div>

@@ -1,8 +1,13 @@
 export const lecturerColumns = [
   {
+    field: "id", // This now corresponds to the row number, not the Firebase ID
+    headerName: "No.",
+    width: 10,
+  },
+  {
     field: "img",
     headerName: "Image",
-    width: 100,
+    width: 50,
     renderCell: (params) => {
       return (
         <img
@@ -16,7 +21,7 @@ export const lecturerColumns = [
   {
     field: "fullName",
     headerName: "Full Name",
-    width: 230,
+    width: 150,
   },
   {
     field: "licenseNumber",
@@ -26,28 +31,21 @@ export const lecturerColumns = [
   {
     field: "email",
     headerName: "Email",
-    width: 230,
+    width: 200,
   },
   {
     field: "phone",
     headerName: "Phone Number",
-    width: 160,
+    width: 130,
   },
   {
     field: "vehicleType",
     headerName: "Vehicle Type",
-    width: 150,
+    width: 100,
   },
   {
     field: "specialization",
     headerName: "Specialization",
     width: 180,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.availability}`}>
-          {params.row.availability}
-        </div>
-      );
-    },
   },
 ];

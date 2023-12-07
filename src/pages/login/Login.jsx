@@ -1,29 +1,60 @@
 import { useContext, useState } from "react";
-import "./login.scss";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Auth } from "../../Firebase"; // Updated import path
+import { doc, getDoc } from "firebase/firestore";
+import { Auth, db } from "../../Firebase";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import "./login.scss";
 
 const Login = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setError(false); // Reset error state on new submission
+    setError(false);
 
     signInWithEmailAndPassword(Auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        dispatch({ type: "LOGIN", payload: user });
-        navigate("/home"); // Redirect to '/home' or your desired route
+
+        // Check for the admin user directly by email
+        if (email === "nisarg4903@gmail.com") {
+          // Dispatch admin login
+          dispatch({ type: "LOGIN", payload: { ...user, role: "admin" } });
+          // Navigate to the admin home page
+          navigate("/home");
+          return; // Prevent further execution
+        }
+
+        // Fetch the role from Firestore for other users
+        const userDocRef = doc(db, "users", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          // Dispatch login with user role
+          dispatch({
+            type: "LOGIN",
+            payload: { ...user, role: userData.role },
+          });
+          // Check for the student role and redirect
+          if (userData.role === "student") {
+            navigate("/StudentPage");
+          } else {
+            setError(true);
+          }
+        } else {
+          // This case handles users without a role, default to student role
+          dispatch({ type: "LOGIN", payload: { ...user, role: "student" } });
+          navigate("/StudentPage");
+        }
       })
       .catch((error) => {
+        console.error("Login error", error);
         setError(true);
       });
   };
@@ -34,11 +65,13 @@ const Login = () => {
         <input
           type="email"
           placeholder="Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>

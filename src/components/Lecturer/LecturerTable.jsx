@@ -10,22 +10,23 @@ import { db } from "../../Firebase";
 const Datatable = () => {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let list = [];
-      try {
-        // Fetch from the "instructors" collection instead of "users"
-        const querySnapshot = await getDocs(collection(db, "instructors"));
-        querySnapshot.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
-        });
-        setData(list);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+useEffect(() => {
+  const fetchData = async () => {
+    let list = [];
+    try {
+      const querySnapshot = await getDocs(collection(db, "instructors"));
+      let counter = 1; // Initialize a counter to assign row numbers
+      querySnapshot.forEach((doc) => {
+        list.push({ id: counter, ...doc.data() }); // Use the counter as the id
+        counter++; // Increment the counter for the next row
+      });
+      setData(list);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  fetchData();
+}, []);
 
   const handleDelete = async (id) => {
     try {

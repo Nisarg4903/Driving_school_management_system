@@ -9,10 +9,9 @@ import {collection, query, where, getDocs} from "firebase/firestore"
 import {db} from "../../Firebase"
 
 const Widget = ({ type }) => {
-  const [amount, setAmount] = useState(null)
-  const [diff, setDiff] = useState(null);
+  const [amount, setAmount] = useState(null);
+  const [diff] = useState(null);
   let data;
-
 
   switch (type) {
     case "student":
@@ -85,32 +84,40 @@ const Widget = ({ type }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const today = new Date();
-      const lastMonth = new Date(new Date().setMonth(today.getMonth() - 1));
-      const prevMonth = new Date(new Date().setMonth(today.getMonth() - 2));
+      try {
+        let querySnapshot;
+        if (type === "student") {
+          const studentsQuery = query(
+            collection(db, "users"),
+            where("role", "==", "student")
+          );
+          querySnapshot = await getDocs(studentsQuery);
+          setAmount(querySnapshot.docs.length);
+        } else if (type === "instructor") {
+          const instructorsQuery = collection(db, "instructors");
+          querySnapshot = await getDocs(instructorsQuery);
+          setAmount(querySnapshot.docs.length);
+        } else if (type === "earning") {
+          const earningsQuery = collection(db, "users");
+          querySnapshot = await getDocs(earningsQuery);
+          const totalEarnings = querySnapshot.docs.reduce((total, doc) => {
+            const payment = doc.data().payment;
+            return total + (Number(payment) || 0); // Convert payment to a number and accumulate
+          }, 0);
+          setAmount(totalEarnings);
+        }
 
-      const lastMonthQuery = query(
-        collection(db, "users"),
-        where("timestamp", "<=", today),
-        where("timestamp", ">", lastMonth)
-      );
-
-      const prevMonthQuery = query(
-        collection(db, "users"),
-        where("timestamp", "<=", lastMonth),
-        where("timestamp", ">", prevMonth)
-      );
-
-      const lastMonthData = await getDocs(lastMonthQuery)
-      const prevMonthData = await getDocs(prevMonthQuery);
-
-      setAmount(lastMonthData.docs.length)
+        // Additional cases for "balance" can be handled here if needed
+        // ...
+      } catch (err) {
+        console.error("Error fetching data: ", err);
+        setAmount(0); // Set the amount to 0 if there is an error
+      }
     };
+
     fetchData();
-  });
+  }, [type]); // Add type as a dependency, so it re-runs when type changes
 
-
-  
   return (
     <div className="widget">
       <div className="left">
