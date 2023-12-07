@@ -153,10 +153,9 @@ const List = () => {
         </div>
         <div className="table-wrapper">
           <table>
-            {/* Update the table header and body to include fullName */}
             <thead>
               <tr>
-                <th>Full Name</th> {/* Updated from Email to Full Name */}
+                <th>Email</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Action</th>
