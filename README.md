@@ -1,8 +1,9 @@
 # DRIVING SCHOOL MANAGEMENT SYSTEM
-This here is an online Web-App for a driving school management system. It uses Firebase for its Database and React for it Frontend. All the communication to the database is being done through props in react with no backend framework. Feel free to check it out and would appreciate any feedback for improvement.
+This here is an online Web-App for a driving school management system. It uses Firebase for its Database and React for it Frontend. All the communication to the database is being done through props in react with no backend framework. Feel free to check it out and would appreciate any feedback for improvement. 
 
-
-
+Use the below steps to set up the project locally. after starting the server run npm install to get all the dependancies eg.  
+npm i or npm install 
+npm start;
 
 # Getting Started with Create React App
 
